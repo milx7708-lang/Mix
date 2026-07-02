@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ขยับสถานะกันเถอะ! 💖🐱</title>
+    <!-- Google Fonts น่ารักๆ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Sriracha&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti สำหรับเอฟเฟกต์ฉลอง -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --pastel-pink: #FFD1DC;
+            --pastel-dark-pink: #FFB7B2;
+            --pastel-yellow: #FFF9A6;
+            --pastel-white: #FFF5F5;
+            --pastel-purple: #E8D5F0;
+            --text-color: #6C5B7B;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Mitr', sans-serif;
+            color: var(--text-color);
+        }
+
+        body {
+            background-color: var(--pastel-white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* เพลงมุมจอ */
+        .music-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 12px 18px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            border: 2px solid var(--pastel-pink);
+            transition: all 0.3s ease;
+        }
+
+        .music-box:hover {
+            transform: scale(1.1);
+            background: var(--pastel-pink);
+            color: white;
+        }
+
+        /* แมวน้อยน่ารัก */
+        .cat-decoration {
+            position: fixed;
+            font-size: 60px;
+            z-index: 100;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cat-left {
+            left: 20px;
+            bottom: 30%;
+            animation-delay: 0s;
+        }
+
+        .cat-right {
+            right: 20px;
+            top: 40%;
+            animation-delay: 1s;
+        }
+
+        .cat-bottom {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 50px;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1, h2 {
+            font-family: 'Sriracha', cursive;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-weight: bold;
+            font-family: 'Sriracha', cursive;
+            position: relative;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pastel-pink) 0%, #FFB7B2 100%);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(255, 183, 178, 0.4);
+        }
+
+        /* 1. Welcome Screen */
+        #welcome {
+            background: linear-gradient(135deg, var(--pastel-white) 0%, var(--pastel-purple) 100%);
+        }
+
+        .story-box {
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            max-width: 550px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(232, 213, 240, 0.3);
+            border: 4px dashed var(--pastel-pink);
+            position: relative;
+        }
+
+        .story-box::before,
+        .story-box::after {
+            content: '🐱';
+            position: absolute;
+            font-size: 35px;
+        }
+
+        .story-box::before {
+            top: -25px;
+            left: 20px;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        .story-box::after {
+            bottom: -25px;
+            right: 20px;
+            animation: wiggle 2s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* 2. Memory Gallery */
+        #gallery {
+            background: linear-gradient(180deg, var(--pastel-yellow) 0%, var(--pastel-white) 100%);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transform: rotate(var(--r));
+            transition: all 0.3s;
+            border: 3px solid var(--pastel-pink);
+            position: relative;
+        }
+
+        .card::after {
+            content: '🐾';
+            position: absolute;
+            top: -15px;
+            right: -10px;
+            font-size: 30px;
+            opacity: 0.6;
+        }
+
+        .card:hover {
+            transform: rotate(0deg) scale(1.08);
+            z-index: 10;
+            box-shadow: 0 15px 30px rgba(255, 183, 178, 0.3);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFE8F0 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin-bottom: 15px;
+            border: 3px dashed var(--pastel-dark-pink);
+            position: relative;
+        }
+
+        .card p {
+            font-family: 'Sriracha', cursive;
+            font-size: 17px;
+            color: var(--text-color);
+        }
+
+        /* 3. Proposal Screen */
+        #proposal {
+            background: linear-gradient(135deg, var(--pastel-white) 0%, var(--pastel-pink) 100%);
+            overflow: hidden;
+        }
+
+        .proposal-text {
+            font-size: 2.8rem;
+            color: #FF5E7E;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            align-items: center;
+            position: relative;
+            min-height: 120px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #FF8B94 0%, #FF6B7A 100%);
+            color: white;
+            font-size: 26px;
+            padding: 20px 60px;
+            position: relative;
+        }
+
+        #yesBtn::before {
+            content: '💖';
+            margin-right: 10px;
+        }
+
+        #yesBtn::after {
+            content: '💖';
+            margin-left: 10px;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 10px 40px rgba(255, 107, 122, 0.5);
+        }
+
+        #noBtn {
+            background-color: #E8D5F0;
+            color: #888;
+            font-size: 16px;
+            padding: 12px 30px;
+            position: absolute;
+            transition: all 0.1s ease;
+        }
+
+        /* 4. Success Screen */
+        #success {
+            display: none;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFC2D1 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 999;
+        }
+
+        .success-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            border: 6px solid #FF8B94;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            max-width: 700px;
+            position: relative;
+        }
+
+        .success-content::before {
+            content: '🐱';
+            position: absolute;
+            font-size: 80px;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 0.8s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-30px); }
+        }
+
+        .success-content h1 {
+            font-size: 4rem;
+            color: #FF477E;
+            animation: pulse 0.6s ease-in-out infinite;
+            margin-top: 40px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .success-content h2 {
+            font-size: 2rem;
+            color: #6C5B7B;
+            margin: 20px 0;
+        }
+
+        .success-content p {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #6C5B7B;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF8B94 0%, #FFB7B2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(255, 139, 148, 0.3);
+        }
+
+        .cute-paws {
+            font-size: 40px;
+            margin: 20px 0;
+            animation: paw-dance 1s ease-in-out infinite;
+        }
+
+        @keyframes paw-dance {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(10deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- แมวน้อยน่ารัก -->
+    <div class="cat-decoration cat-left">🐱</div>
+    <div class="cat-decoration cat-right">😸</div>
+    <div class="cat-decoration cat-bottom">😻</div>
+
+    <!-- ปุ่มเพลงน่ารักๆ -->
+    <div class="music-box" onclick="toggleMusic()">
+        <span id="musicIcon">🎵</span>
+        <span id="musicText">เปิดเพลง</span>
+        <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+    </div>
+
+    <!-- 1. หน้าต้อนรับ -->
+    <section id="welcome">
+        <h1 style="font-size: 2.5rem; color: #FF7B94;">สลัดขั้วคนคุย...<br>ขยับมาเป็นคนของใจได้ยัง? 😏💕</h1>
+        <div class="story-box">
+            <p style="font-size: 19px; line-height: 2;">
+                ตลอดเวลาที่คุยกันมา ฉันมีความสุขมากเลยนะ... <br>
+                ขอบคุณเสียงหัวเราะ ขอบคุณที่คอยอยู่ข้างๆ กันตลอด <br>
+                แต่ว่านะ... เป็นแค่คนคุยมันเริ่มจะอึดอัดแล้ว 🥰
+            </p>
+        </div>
+        <button class="btn btn-primary" onclick="scrollToSection('gallery')">คลิกเพื่ออ่านต่อซิ๊ 👇✨</button>
+    </section>
+
+    <!-- 2. หน้าความทรงจำ -->
+    <section id="gallery">
+        <h2 style="font-size: 2.2rem; color: #FF7B94;">แอบส่องความทรงจำของเราแป๊บ 📸🐱</h2>
+        <p style="font-size: 18px; margin-bottom: 10px;">ย้อนดูเรื่องราวเล็กๆ น้อยๆ ที่ผ่านมาด้วยกันนะ 💕</p>
+        
+        <div class="grid-container">
+            <!-- การ์ดที่ 1 -->
+            <div class="card" style="--r: -3deg;">
+                <div class="photo-placeholder">🤝</div>
+                <p>วันแรกที่เริ่มคุยกันนั่นแหละ</p>
+            </div>
+            <!-- การ์ดที่ 2 -->
+            <div class="card" style="--r: 2deg;">
+                <div class="photo-placeholder">🍵</div>
+                <p>ร้านโปรด (หรือเมนูโปรด) ของเรา</p>
+            </div>
+            <!-- การ์ดที่ 3 -->
+            <div class="card" style="--r: -2deg;">
+                <div class="photo-placeholder">💖</div>
+                <p>รอยยิ้มของเธอที่ชอบที่สุด</p>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 50px;" onclick="scrollToSection('proposal')">เข้าเรื่องสำคัญละนะ! 🫣💕</button>
+    </section>
+
+    <!-- 3. หน้าคำถามสำคัญ -->
+    <section id="proposal">
+        <h2 class="proposal-text">เป็นแฟนฉันได้ยัง? 💖🐱</h2>
+        <p style="font-size: 20px; margin-bottom: 30px; color: #6C5B7B;">คิดดีๆ น้าาา ปุ่มปฏิเสธมันมีอาถรรพ์นะบอก! 😸✨</p>
+
+        <div class="btn-group">
+            <button class="btn" id="yesBtn" onclick="celebrate()">ตกลงดิครับ 🥰</button>
+            <button class="btn" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">ไม่เป็นอ่ะ 😜</button>
+        </div>
+    </section>
+
+    <!-- 4. หน้าฉลองความสำเร็จ -->
+    <section id="success">
+        <div class="success-content">
+            <h1>เย้!!! 🎉💖🐱</h1>
+            <h2>วันนี้สิ้นสุดทางเพื่อนและคนคุยแล้วนะ!</h2>
+            <div class="cute-paws">🐾 🐾 🐾</div>
+            <p style="font-size: 22px; margin: 20px 0;">ขยับสถานะเป็น "แฟนฉัน" เรียบร้อย<br>ล็อกมงแล้วห้ามคืนสินค้าค่ะ! 😸💕</p>
+            <p style="font-size: 18px; margin: 15px 0;">วันครบรอบของเราคือวันนี้เลยนะจ๊ะ:</p>
+            <div class="date-badge" id="todayDate">1 มกราคม 2026</div>
+            <div style="font-size: 50px; margin-top: 30px; animation: float 2s ease-in-out infinite;">🐱❤️😻</div>
+        </div>
+    </section>
+
+    <script>
+        // เลื่อนหน้าจอสมูทๆ
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ลูกเล่นปุ่ม "ไม่เป็น" วิ่งหนี
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            const proposalSection = document.getElementById('proposal');
+            
+            const padding = 50;
+            const maxX = proposalSection.clientWidth - noBtn.clientWidth - padding;
+            const maxY = proposalSection.clientHeight - noBtn.clientHeight - padding;
+            
+            const randomX = Math.floor(Math.random() * (maxX - padding)) + padding/2;
+            const randomY = Math.floor(Math.random() * (maxY - padding)) + padding/2;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // ระบบเปิด-ปิดเพลง
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            const icon = document.getElementById('musicIcon');
+            const text = document.getElementById('musicText');
+
+            if (music.paused) {
+                music.play().catch(e => console.log("ต้องกดปฏิสัมพันธ์ก่อน"));
+                icon.innerText = '⏸️';
+                text.innerText = 'หยุด';
+            } else {
+                music.pause();
+                icon.innerText = '🎵';
+                text.innerText = 'เปิดเพลง';
+            }
+        }
+
+        // เมื่อกดตกลง
+        function celebrate() {
+            document.getElementById('success').style.display = 'flex';
+            
+            const music = document.getElementById('bgMusic');
+            if(music.paused) toggleMusic();
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('th-TH', options);
+            document.getElementById('todayDate').innerText = today;
+
+            // เอฟเฟกต์พลุกระดาษ
+            var duration = 5 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#FFD1DC', '#FFB7B2', '#FFF9A6', '#FF8B94', '#E8D5F0']
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#FFD1DC', '#FFB7B2', '#FFF9A6', '#FF8B94', '#E8D5F0']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    </script>
+</body>
+</html>
