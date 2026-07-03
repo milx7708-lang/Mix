@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Special Memories ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&family=Pattaya&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Mitr', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            color: #4a4a4a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ส่วนหัวข้อต้อนรับ */
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            font-family: 'Pattaya', sans-serif;
+            font-size: 3.5rem;
+            color: #ff477e;
+            margin-bottom: 10px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* หัวข้อย่อยประจำส่วน */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #ff5c8a;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '✨';
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        /* ส่วนของแมวน่ารัก */
+        .cats-section {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            margin-bottom: 60px;
+        }
+
+        .cats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .cat-item {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .cat-item:hover {
+            transform: scale(1.1);
+        }
+
+        .cat-emoji {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .cat-item:active .cat-emoji {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .cat-name {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        /* ส่วนของแกลเลอรีรูปภาพความทรงจำ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 15px;
+            text-align: center;
+            font-weight: 400;
+            font-size: 1rem;
+            background: #fff;
+            color: #555;
+        }
+
+        /* ส่วนของอาหารที่ชอบ */
+        .food-section {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            margin-bottom: 60px;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .food-item {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .food-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* ส่วนของการขอน้องเกสเป็นแฟน */
+        .ask-section {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .ask-title {
+            font-size: 2.5rem;
+            color: #ff477e;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* กล่องจัดการปุ่ม */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+            min-height: 150px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .btn-yes {
+            background-color: #ff477e;
+            color: white;
+            z-index: 10;
+        }
+
+        .btn-yes:hover {
+            background-color: #ff5c8a;
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background-color: #6c757d;
+            color: white;
+            position: relative;
+        }
+
+        /* หน้าต่างแสดงเมื่อกดตกลง */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .success-overlay.show {
+            display: flex;
+        }
+
+        .success-box {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: popIn 0.5s ease;
+        }
+
+        .success-box h2 {
+            font-size: 2.5rem;
+            color: #ff477e;
+            margin-bottom: 20px;
+        }
+
+        .success-box p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .success-cats {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: bounce 0.6s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .music-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 71, 126, 0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 999;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .music-indicator.show {
+            display: flex;
+        }
+
+        .music-note {
+            font-size: 1.2rem;
+            animation: float 1s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ส่วนหัวข้อต้อนรับ -->
+    <header>
+        <h1>💕 ความทรงจำพิเศษของเรา 💕</h1>
+        <p>โปรดเลือกคำตอบของคุณ</p>
+    </header>
+
+    <div class="container">
+        <!-- ส่วนแมวน่ารัก -->
+        <div class="section-title">🐱 แมวน่ารักของเรา 🐱</div>
+        <div class="cats-section">
+            <div class="cats-grid">
+                <div class="cat-item" onclick="playCatSound()">
+                    <span class="cat-emoji">😸</span>
+                    <div class="cat-name">แมวยิ้มแฉ่ง</div>
+                </div>
+                <div class="cat-item" onclick="playCatSound()">
+                    <span class="cat-emoji">😻</span>
+                    <div class="cat-name">แมวหัวใจ</div>
+                </div>
+                <div class="cat-item" onclick="playCatSound()">
+                    <span class="cat-emoji">😹</span>
+                    <div class="cat-name">แมวหัวเราะ</div>
+                </div>
+                <div class="cat-item" onclick="playCatSound()">
+                    <span class="cat-emoji">😺</span>
+                    <div class="cat-name">แมวสนใจ</div>
+                </div>
+                <div class="cat-item" onclick="playCatSound()">
+                    <span class="cat-emoji">😽</span>
+                    <div class="cat-name">แมวจูบ</div>
+                </div>
+                <div class="cat-item" onclick="playCatSound()">
+                    <span class="cat-emoji">😼</span>
+                    <div class="cat-name">แมวเจ้าระเริง</div>
+                </div>
+                <div class="cat-item" onclick="playCatSound()">
+                    <span class="cat-emoji">😿</span>
+                    <div class="cat-name">แมวเศร้า</div>
+                </div>
+                <div class="cat-item" onclick="playCatSound()">
+                    <span class="cat-emoji">😾</span>
+                    <div class="cat-name">แมวโกรธ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ส่วนของแกลเลอรีรูปภาพความทรงจำ -->
+        <div class="section-title">📸 ภาพความทรงจำของเรา 📸</div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                    💕
+                </div>
+                <div class="gallery-caption">ช่วงเวลาที่สุขสวรรค์</div>
+            </div>
+            <div class="gallery-item">
+                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                    ❤️
+                </div>
+                <div class="gallery-caption">วันที่พิเศษ</div>
+            </div>
+            <div class="gallery-item">
+                <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                    🌟
+                </div>
+                <div class="gallery-caption">ความประทับใจ</div>
+            </div>
+        </div>
+
+        <!-- ส่วนของอาหารที่ชอบ -->
+        <div class="section-title">🍕 สิ่งที่เราชอบ 🍕</div>
+        <div class="food-section">
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-icon">🍕</div>
+                    <p>พิซซ่า</p>
+                </div>
+                <div class="food-item">
+                    <div class="food-icon">🍔</div>
+                    <p>เบอร์เกอร์</p>
+                </div>
+                <div class="food-item">
+                    <div class="food-icon">🍜</div>
+                    <p>ราเมน</p>
+                </div>
+                <div class="food-item">
+                    <div class="food-icon">🍰</div>
+                    <p>เค้ก</p>
+                </div>
+                <div class="food-item">
+                    <div class="food-icon">🍦</div>
+                    <p>ไอศครีม</p>
+                </div>
+                <div class="food-item">
+                    <div class="food-icon">☕</div>
+                    <p>กาแฟ</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ส่วนของการขอน้องเกสเป็นแฟน -->
+        <div class="ask-section">
+            <div class="ask-title">🌹 คุณจะเป็นแฟนของฉันไหม? 🌹</div>
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="confirmYes()">✨ ใช่สิค่ะ ✨</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()">❌ ไม่ค่ะ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- หน้าต่างแสดงเมื่อกดตกลง -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-box">
+            <div class="success-cats">😻 💕 😻</div>
+            <h2>โอ้ ขอบคุณนะคะ!</h2>
+            <p>คุณเป็นคนที่ดีที่สุดในโลกของฉัน ❤️</p>
+            <button class="btn btn-yes" onclick="closeSuccess()" style="margin-top: 20px;">ปิด</button>
+        </div>
+    </div>
+
+    <!-- ตัวบ่งชี้เพลง -->
+    <div class="music-indicator" id="musicIndicator">
+        <span class="music-note">🎵</span>
+        <span>เพลงสบายๆ กำลังเล่น...</span>
+    </div>
+
+    <script>
+        // ตัวแปรสำหรับเก็บเสียงเพลงสบายๆ
+        let relaxingAudio;
+
+        // เริ่มต้นเสียง
+        function initAudio() {
+            // ใช้ Web Audio API เพื่อสร้างเสียงสบายๆ
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // สร้าง oscillator สำหรับเสียงลึก
+            const oscillator1 = audioContext.createOscillator();
+            const oscillator2 = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            
+            oscillator1.type = 'sine';
+            oscillator2.type = 'sine';
+            
+            // ความถี่ที่สบายๆ
+            oscillator1.frequency.setValueAtTime(264, audioContext.currentTime); // C4
+            oscillator2.frequency.setValueAtTime(330, audioContext.currentTime); // E4
+            
+            gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+            
+            oscillator1.connect(gain);
+            oscillator2.connect(gain);
+            gain.connect(audioContext.destination);
+            
+            return { oscillator1, oscillator2, gain, audioContext };
+        }
+
+        // ฟังก์ชันเล่นเสียงแมวและเพลงสบายๆ
+        function playCatSound() {
+            showMusicIndicator();
+            
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // สร้างเสียงแมว (เสียงมิวแนว)
+                const meowOscillator = audioContext.createOscillator();
+                const meowGain = audioContext.createGain();
+                
+                meowOscillator.type = 'sine';
+                meowOscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                meowOscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.2);
+                
+                meowGain.gain.setValueAtTime(0.3, audioContext.currentTime);
+                meowGain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                
+                meowOscillator.connect(meowGain);
+                meowGain.connect(audioContext.destination);
+                
+                meowOscillator.start(audioContext.currentTime);
+                meowOscillator.stop(audioContext.currentTime + 0.2);
+                
+                // เล่นเพลงสบายๆหลังเสียงแมว
+                setTimeout(() => playRelaxingMusic(audioContext), 200);
+            } catch(e) {
+                console.log('Audio not supported:', e);
+            }
+        }
+
+        // ฟังก์ชันเล่นเพลงสบายๆ
+        function playRelaxingMusic(audioContext) {
+            // สร้างเพลงลำดับโน้ต C major
+            const notes = [264, 264, 264, 296, 330, 330, 330, 330]; // C, C, C, D, E, E, E, E
+            const duration = 0.3;
+            
+            notes.forEach((frequency, index) => {
+                setTimeout(() => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = frequency;
+                    
+                    gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    osc.start(audioContext.currentTime);
+                    osc.stop(audioContext.currentTime + duration);
+                }, index * (duration * 1000));
+            });
+            
+            hideMusicIndicator();
+        }
+
+        // แสดงตัวบ่งชี้เพลง
+        function showMusicIndicator() {
+            const indicator = document.getElementById('musicIndicator');
+            indicator.classList.add('show');
+        }
+
+        // ซ่อนตัวบ่งชี้เพลง
+        function hideMusicIndicator() {
+            setTimeout(() => {
+                const indicator = document.getElementById('musicIndicator');
+                indicator.classList.remove('show');
+            }, 2500);
+        }
+
+        // ฟังก์ชันกดปุ่มใช่
+        function confirmYes() {
+            document.getElementById('successOverlay').classList.add('show');
+            playCatSound();
+        }
+
+        // ฟังก์ชันปิดหน้าต่างสำเร็จ
+        function closeSuccess() {
+            document.getElementById('successOverlay').classList.remove('show');
+        }
+
+        // ฟังก์ชันเลื่อนปุ่มไม่
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const randomX = (Math.random() - 0.5) * 200;
+            const randomY = (Math.random() - 0.5) * 200;
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        // เพิ่มการสัมผัส (touch support) สำหรับอุปกรณ์เคลื่อนที่
+        const cats = document.querySelectorAll('.cat-item');
+        cats.forEach(cat => {
+            cat.addEventListener('touchstart', playCatSound);
+        });
+    </script>
+</body>
+</html>
