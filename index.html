@@ -335,7 +335,14 @@
         .btn-no {
             background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
             color: white;
-            position: relative;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn-no:hover {
+            transform: translate(-50%, -50%) scale(0.9);
         }
 
         /* หน้าต่างแสดงเมื่อกดตกลง */
@@ -366,7 +373,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 3px solid #ff477e;
-            max-width: 500px;
+            max-width: 600px;
         }
 
         .success-box h2 {
@@ -379,8 +386,17 @@
         .success-box p {
             font-size: 1.3rem;
             color: #555;
-            margin-bottom: 30px;
-            line-height: 1.6;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        .love-message {
+            font-size: 1.2rem;
+            color: #ff477e;
+            margin: 15px 0;
+            animation: fadeInUp 0.6s ease;
+            font-style: italic;
         }
 
         .success-cats {
@@ -388,6 +404,49 @@
             margin-bottom: 20px;
             animation: bounce 0.6s infinite;
             letter-spacing: 10px;
+        }
+
+        /* ปุ่มขอปฏิเสธ */
+        .no-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 900;
+            backdrop-filter: blur(3px);
+        }
+
+        .no-overlay.show {
+            display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .no-box {
+            background: linear-gradient(135deg, #ffffff 0%, #fff5e6 100%);
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            animation: slideInDown 0.4s ease;
+            border: 2px solid #ff9800;
+            max-width: 400px;
+        }
+
+        .no-box h3 {
+            font-size: 2rem;
+            color: #ff9800;
+            margin-bottom: 15px;
+        }
+
+        .no-box p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
         }
 
         @keyframes heartbeat {
@@ -439,6 +498,17 @@
             }
         }
 
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         @keyframes slideIn {
             from {
                 transform: translateX(-50px);
@@ -446,6 +516,17 @@
             }
             to {
                 transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
                 opacity: 1;
             }
         }
@@ -607,15 +688,15 @@
         <div class="section-title">📸 รูป คู่ของ เรา 📸</div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1606011645571-79cadae88b5f?w=400&h=320&fit=crop" alt="รูปคู่ของเรา">
-                <div class="gallery-caption">รูปคู่ของเรา</div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320'%3E%3Crect fill='%23FFB6C1' width='400' height='320'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23fff'%3E💕 รูป คู่ของ เรา 💕%3C/text%3E%3C/svg%3E" alt="รูปคู่ของเรา">
+                <div class="gallery-caption">รูป คู่ของ เรา 💑</div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&h=320&fit=crop" alt="ช่วงเวลาที่สุขสวรรค์">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320'%3E%3Crect fill='%23FFD1DC' width='400' height='320'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23ff477e'%3E💗 ช่วงเวลาที่สุขสวรรค์ 💗%3C/text%3E%3C/svg%3E" alt="ช่วงเวลาที่สุขสวรรค์">
                 <div class="gallery-caption">ช่วงเวลาที่สุขสวรรค์</div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=320&fit=crop" alt="วันที่พิเศษ">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320'%3E%3Crect fill='%23FFE5EC' width='400' height='320'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23ff477e'%3E💖 วันที่พิเศษ 💖%3C/text%3E%3C/svg%3E" alt="วันที่พิเศษ">
                 <div class="gallery-caption">วันที่พิเศษ</div>
             </div>
         </div>
@@ -655,7 +736,7 @@
         <div class="section-title">📷 รูป ฉัน เหนา 📷</div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1508003516284-16edd7e0e5fa?w=400&h=320&fit=crop" alt="รูปฉันเหนา">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320'%3E%3Crect fill='%23FFC0CB' width='400' height='320'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-size='40' fill='%23ff477e'%3E😊 รูป ฉัน เหนา 😊%3C/text%3E%3C/svg%3E" alt="รูปฉันเหนา">
                 <div class="gallery-caption">รูปฉันเหนา</div>
             </div>
         </div>
@@ -665,7 +746,7 @@
             <div class="ask-title">🌹 คุณจะเป็นแฟนของฉันไหม? 🌹</div>
             <div class="btn-group">
                 <button class="btn btn-yes" onclick="confirmYes()">✨ ใช่สิค่ะ ✨</button>
-                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()">❌ ไม่ค่ะ</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onmouseenter="moveButton()" ontouchstart="moveButton()">❌ ไม่ค่ะ</button>
             </div>
         </div>
     </div>
@@ -674,9 +755,23 @@
     <div class="success-overlay" id="successOverlay">
         <div class="success-box">
             <div class="success-cats">😻 💕 😻</div>
-            <h2>โอ้ ขอบคุณนะคะ!</h2>
-            <p>คุณเป็นคนที่ดีที่สุดในโลกของฉัน ❤️<br>ฉันรักคุณมากๆ 💕</p>
-            <button class="btn btn-yes" onclick="closeSuccess()" style="margin-top: 20px;">ปิด</button>
+            <h2>โอ้ ขอบคุณนะคะ! 🥰</h2>
+            <p>คุณเป็นคนที่ดีที่สุดในโลกของฉัน ❤️</p>
+            <div class="love-message">✨ ฉันรักคุณมากๆ 💕 ✨</div>
+            <div class="love-message">คุณทำให้วันของฉันมีความสุข 😻</div>
+            <div class="love-message">ขอบคุณที่อยู่ข้างฉัน 💗</div>
+            <div class="love-message">ฉันหวังว่าจะอยู่กับคุณตลอดไป 💕</div>
+            <button class="btn btn-yes" onclick="closeSuccess()" style="margin-top: 30px;">💖 ปิด 💖</button>
+        </div>
+    </div>
+
+    <!-- หน้าต่างแสดงเมื่อกดไม่ -->
+    <div class="no-overlay" id="noOverlay">
+        <div class="no-box">
+            <h3>😢 ทำไมปฏิเสธล่ะ?</h3>
+            <p>คุณทำให้ฉันเศร้า...</p>
+            <p>ขอให้คิดใหม่หน่อยนะคะ 🥺</p>
+            <button class="btn btn-yes" onclick="closeNo()" style="margin-top: 15px; background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); padding: 12px 30px; font-size: 1.1rem;">ตกลง</button>
         </div>
     </div>
 
@@ -689,6 +784,7 @@
     <script>
         // ตัวแปรสำหรับเก็บเสียงเพลงสบายๆ
         let relaxingAudio;
+        let isNoButtonEscaping = false;
 
         // ฟังก์ชันสร้างผลกระทบ Sparkle
         function createSparkle(event) {
@@ -809,7 +905,7 @@
             playCatSound({ clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 });
             
             // สร้าง sparkles หลายๆ ตัว
-            for(let i = 0; i < 20; i++) {
+            for(let i = 0; i < 30; i++) {
                 setTimeout(() => {
                     const event = {
                         clientX: Math.random() * window.innerWidth,
@@ -825,13 +921,93 @@
             document.getElementById('successOverlay').classList.remove('show');
         }
 
-        // ฟังก์ชันเลื่อนปุ่มไม่
-        function moveButton() {
-            const noBtn = document.getElementById('noBtn');
-            const randomX = (Math.random() - 0.5) * 250;
-            const randomY = (Math.random() - 0.5) * 250;
-            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        // ฟังก์ชันปิดหน้าต่างไม่
+        function closeNo() {
+            document.getElementById('noOverlay').classList.remove('show');
         }
+
+        // ฟังก์ชันเลื่อนปุ่มไม่ - เพิ่มการหลบหลีกแบบอื่นๆ
+        function moveButton() {
+            if(isNoButtonEscaping) return;
+            isNoButtonEscaping = true;
+
+            const noBtn = document.getElementById('noBtn');
+            const btnGroup = document.querySelector('.btn-group');
+            
+            // วิธีการหลบหลีกแบบต่างๆ
+            const escapeTypes = [
+                () => {
+                    // หมุนและลอย
+                    const angle = Math.random() * 360;
+                    const distance = 150 + Math.random() * 200;
+                    const x = Math.cos(angle * Math.PI / 180) * distance;
+                    const y = Math.sin(angle * Math.PI / 180) * distance;
+                    noBtn.style.transform = `translate(${x}px, ${y}px) rotate(${angle}deg)`;
+                },
+                () => {
+                    // วิ่งไปที่มุมสุ่ม
+                    const x = (Math.random() - 0.5) * 400;
+                    const y = (Math.random() - 0.5) * 400;
+                    noBtn.style.transform = `translate(${x}px, ${y}px) scale(0.8)`;
+                },
+                () => {
+                    // กระโดดขึ้น
+                    noBtn.style.transform = `translateY(-300px) scaleX(${Math.random() > 0.5 ? -1 : 1})`;
+                },
+                () => {
+                    // ซ่อนตัว
+                    noBtn.style.transform = `translate(${Math.random() * window.innerWidth}px, ${Math.random() * window.innerHeight}px)`;
+                }
+            ];
+            
+            const randomEscape = escapeTypes[Math.floor(Math.random() * escapeTypes.length)];
+            randomEscape();
+
+            // แสดงข้อความสัตหลวง
+            if(Math.random() > 0.6) {
+                showTeasingMessage();
+            }
+
+            setTimeout(() => {
+                isNoButtonEscaping = false;
+            }, 300);
+        }
+
+        // ฟังก์ชันแสดงข้อความล้อเล่น
+        function showTeasingMessage() {
+            const messages = [
+                '😏 ต้องกดได้สักที่นะ',
+                '🏃 หนีไปแล้ว!',
+                '😹 ถ้ากดได้สิ~',
+                '💨 ว่องไวเหมือนแมว!',
+                '🎯 ลองอีกทีสิ!'
+            ];
+            
+            const message = messages[Math.floor(Math.random() * messages.length)];
+            const msgEl = document.createElement('div');
+            msgEl.style.cssText = `
+                position: fixed;
+                left: ${Math.random() * window.innerWidth}px;
+                top: ${Math.random() * window.innerHeight}px;
+                font-size: 1.5rem;
+                animation: fadeInUp 0.4s ease;
+                pointer-events: none;
+                z-index: 500;
+                font-weight: bold;
+            `;
+            msgEl.textContent = message;
+            document.body.appendChild(msgEl);
+            
+            setTimeout(() => msgEl.remove(), 1500);
+        }
+
+        // เพิ่มตัวจัดการเหตุการณ์เมื่อใช้ปุ่มไม่ด้วย
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mousemove', function() {
+            if(Math.random() > 0.85) {
+                moveButton();
+            }
+        });
 
         // เพิ่มการสัมผัส (touch support) สำหรับอุปกรณ์เคลื่อนที่
         const cats = document.querySelectorAll('.cat-item');
@@ -844,6 +1020,14 @@
             if(e.target.classList.contains('food-item')) {
                 createSparkle(e);
             }
+        });
+
+        // ป้องกันการกดปุ่มไม่
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('noOverlay').classList.add('show');
+            moveButton();
+            return false;
         });
     </script>
 </body>
